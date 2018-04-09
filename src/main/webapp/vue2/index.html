@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Learning Vue 2</title>
+ <script src="../js/vue.min.js"></script> 
+</head>
+<body>
+
+	<div id="root">
+
+		<!-- AUTOMATIC-DATA-BINDING -->
+		<input id="input" type="text" v-model="message">
+
+		<!-- Getting valores del model -->
+		<p>The value of the input es: {{message}} </p>
+		
+		<!-- looping --> 
+		<ul>
+			<li v-for="name in names">{{name}}</li>
+		</ul>
+		<!-- or  using v-text-->
+		<ul>
+			<li v-for="name in names" v-text="name"/>
+		</ul>
+		<!-- adding names to the json array-->
+		<input type="text">
+		<button v-one:click="addName">Add</button>
+		
+		
+
+	</div>
+
+
+	<script>
+		 let dataModel = {
+				 message:'Hello World',
+				 names:['Pepe','Cassandra','Java','Linux'] 
+		 
+		 };
+		 
+		 //Surface-Area 
+		 //Donde quiero que se aplique Vue se realiza atravez de la propiedad: el, que stand por "element"
+		 //Para este caso todo dentro del div root, esta bajo el contexto de vue
+		 new Vue(
+					{
+			 			el: '#root',
+			 			
+			 			//model
+			 			data:dataModel,
+			
+			 			//methods definidos en Vue
+			 			methods:{
+			 				addName:function(){
+			 					alert("adicionando name");
+			 				}
+			 			},
+			 			
+			 			//function que se ejecuta cuando la instancia de Vue es correcta
+			 			mounted(){
+				 			//alert('correctamente iniciado');
+			 			}
+		 			}
+		 		);
+		 
+	</script>
+
+</body>
+</html>
