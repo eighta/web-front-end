@@ -8,6 +8,11 @@
 <body>
 
 	<div id="root">
+	
+		<h1 v-text="new Date()"></h1>
+		
+		<!-- llamado de funciones internas (compute property)-->
+		<h2>{{reverseMessege}}</h2>
 
 		<!-- AUTOMATIC-DATA-BINDING -->
 		<input id="input" type="text" v-model="message">
@@ -24,25 +29,24 @@
 			<li v-for="name in names" v-text="name"/>
 		</ul>
 		<!-- adding names to the json array-->
-		<input type="text">
-		<button v-one:click="addName">Add</button>
+		<input type="text" v-model="newName">
+		<button v-on:click="addName">Add</button>
 		
-		
-
 	</div>
-
 
 	<script>
 		 let dataModel = {
+				 newName:'',
 				 message:'Hello World',
 				 names:['Pepe','Cassandra','Java','Linux'] 
 		 
 		 };
 		 
+		 
 		 //Surface-Area 
 		 //Donde quiero que se aplique Vue se realiza atravez de la propiedad: el, que stand por "element"
 		 //Para este caso todo dentro del div root, esta bajo el contexto de vue
-		 new Vue(
+		 var app = new Vue(
 					{
 			 			el: '#root',
 			 			
@@ -51,12 +55,22 @@
 			
 			 			//methods definidos en Vue
 			 			methods:{
-			 				addName:function(){
-			 					alert("adicionando name");
-			 				}
+			 				addName: function(){
+								this.names.push(this.newName);
+								this.newName = '';
+							}
 			 			},
 			 			
-			 			//function que se ejecuta cuando la instancia de Vue es correcta
+			 			//functiones Internas
+			 			computed:{
+			 				reverseMessege(){
+			 					return this.message.split('').reverse().join('');
+			 				}
+			 				
+			 				
+			 			},
+			 			
+			 			//function que se ejecuta cuando la instancia de Vue es correcta (ready to go)
 			 			mounted(){
 				 			//alert('correctamente iniciado');
 			 			}
